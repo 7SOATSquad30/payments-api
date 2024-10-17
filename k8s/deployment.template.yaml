@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payments-api
+  labels:
+    app: payments-api
+spec:
+  selector:
+    matchLabels:
+      app: payments-api
+  template:
+    metadata:
+      labels:
+        app: payments-api
+    spec:
+      containers:
+        - name: app
+          env:
+            - name: DB_URL
+              value: "jdbc:postgresql://$DB_HOSTNAME:5432/$DB_DATABASE"
+            - name: DB_USERNAME
+              value: "$DB_USERNAME"
+            - name: DB_PASSWORD
+              value: "$DB_PASSWORD"
+            - name: MERCADOPAGO_PUBLIC_KEY
+              value: "$MERCADOPAGO_PUBLIC_KEY"
+            - name: MERCADOPAGO_PRIVATE_ACCESS_TOKEN
+              value: "$MERCADOPAGO_PRIVATE_ACCESS_TOKEN"
+            - name: MERCADOPAGO_APP_USER_ID
+              value: "$MERCADOPAGO_APP_USER_ID"
+            - name: MERCADOPAGO_POINT_OF_SALE_ID
+              value: "$MERCADOPAGO_POINT_OF_SALE_ID"
+            - name: MERCADOPAGO_NOTIFICATIONS_URL
+              value: "$MERCADOPAGO_NOTIFICATIONS_URL"
+            - name: SPRING_PROFILES_ACTIVE
+              value: "$ENVIRONMENT"
+          image: fiap7soat30/payments-api:$VERSION
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 8080
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 40
+            periodSeconds: 30
+            timeoutSeconds: 10
+            failureThreshold: 2
+          readinessProbe:
+            httpGet:
+              path: /swagger-ui/index.html
+              port: 8080
+            initialDelaySeconds: 50
+            periodSeconds: 30
+            timeoutSeconds: 10
+            failureThreshold: 2
+          resources:
+            requests:
+              cpu: "20m"
+              memory: "500Mi"
+            limits:
+              cpu: "500m"
+              memory: "3Gi"
+      restartPolicy: Always
