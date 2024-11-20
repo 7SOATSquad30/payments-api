@@ -32,6 +32,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
+      - name: Raise infra
+        run: make infrastructure/up
+
       - name: Code linting
         run: ./gradlew spotlessCheck
 
