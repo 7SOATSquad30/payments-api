@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "tb_payment")
 public class PaymentEntity {
     @Id
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private Long orderId;
 
     @Enumerated(EnumType.STRING)
