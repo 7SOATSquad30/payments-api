@@ -34,7 +34,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/fast-food:${{ env.VERSION }}
+        tags: ${{ secrets.DOCKER_USERNAME }}/payments-api:${{ env.VERSION }}
 
   k8s-deploy:
     needs: build
