@@ -16,12 +16,6 @@ spec:
       containers:
         - name: app
           env:
-            - name: DB_URL
-              value: "jdbc:postgresql://$DB_HOSTNAME:5432/$DB_DATABASE"
-            - name: DB_USERNAME
-              value: "$DB_USERNAME"
-            - name: DB_PASSWORD
-              value: "$DB_PASSWORD"
             - name: MERCADOPAGO_PUBLIC_KEY
               value: "$MERCADOPAGO_PUBLIC_KEY"
             - name: MERCADOPAGO_PRIVATE_ACCESS_TOKEN
