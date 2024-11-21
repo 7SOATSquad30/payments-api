@@ -1,7 +1,7 @@
 .PHONY: test build run debug lint/fix infrastructure/up
 
 infrastructure/up:
-	docker-compose up -d database flyway
+	docker-compose up -d dynamodb aws-cli
 
 down:
 	docker-compose down --remove-orphans
@@ -26,6 +26,3 @@ debug:
 
 lint/fix:
 	./gradlew spotlessApply
-
-migration/run:
-	./gradlew flywayMigrate
