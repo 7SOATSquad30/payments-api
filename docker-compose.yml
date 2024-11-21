@@ -32,7 +32,8 @@ services:
 
   api:
     depends_on:
-      - database
+      dynamodb:
+        condition: service_healthy 
     build: .
     environment:
       SPRING_PROFILES_ACTIVE: "dev"
@@ -40,9 +41,6 @@ services:
       - "8080:8080"
     networks:
       - bridge-network
-
-volumes:
-  localstack_data:
 
 networks:
   bridge-network:
