@@ -10,8 +10,7 @@ public class CollectPaymentViaCashUseCase {
 
     public PaymentDto execute(
             PaymentRepository paymentRepository, Long orderId, Double paidAmount) {
-        Payment payment =
-                paymentRepository.findByOrderIdForUpdate(orderId).orElse(Payment.create(orderId));
+        Payment payment = paymentRepository.findByOrderId(orderId).orElse(Payment.create(orderId));
 
         payment.setPaymentCollected(paidAmount);
 

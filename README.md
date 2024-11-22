@@ -9,7 +9,7 @@ Instalar dependências e buildar
 
 Subir infra local
 ```
-docker-compose up -d database flyway
+docker-compose up -d dynamodb aws-cli
 ```
 
 Rodar aplicação

@@ -23,9 +23,7 @@ public class CollectPaymentViaMercadoPagoUseCase {
 
             Long orderId = Long.valueOf(mercadoPagoPayment.getExternalReference());
             Payment payment =
-                    paymentRepository
-                            .findByOrderIdForUpdate(orderId)
-                            .orElse(Payment.create(orderId));
+                    paymentRepository.findByOrderId(orderId).orElse(Payment.create(orderId));
 
             if (MercadoPagoPaymentStatus.APPROVED
                     .getValue()
