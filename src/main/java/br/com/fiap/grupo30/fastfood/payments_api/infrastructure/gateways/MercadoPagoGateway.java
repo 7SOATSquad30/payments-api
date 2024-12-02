@@ -39,12 +39,15 @@ public class MercadoPagoGateway {
     @Value("${integrations.mercadopago.notifications-url}")
     private String notificationsUrl;
 
+    private HttpClient httpClient;
     private ObjectMapper jsonMapper;
     private MercadoPagoOrderMapper orderMapper;
 
     @Autowired
-    public MercadoPagoGateway(MercadoPagoOrderMapper orderMapper) {
-        this.jsonMapper = new ObjectMapper();
+    public MercadoPagoGateway(
+            HttpClient httpClient, MercadoPagoOrderMapper orderMapper, ObjectMapper jsonMapper) {
+        this.httpClient = httpClient;
+        this.jsonMapper = jsonMapper;
         this.orderMapper = orderMapper;
     }
 
@@ -61,15 +64,13 @@ public class MercadoPagoGateway {
 
     private HttpResponse<String> makeRequest(String httpMethod, URI resourceUri, BodyPublisher body)
             throws Exception {
-        try (HttpClient client = HttpClient.newHttpClient()) {
-            HttpRequest.Builder builder =
-                    HttpRequest.newBuilder().uri(resourceUri).method(httpMethod, body);
-            getHeaders().forEach(builder::header);
+        HttpRequest.Builder builder =
+                HttpRequest.newBuilder().uri(resourceUri).method(httpMethod, body);
+        getHeaders().forEach(builder::header);
 
-            HttpRequest request = builder.build();
+        HttpRequest request = builder.build();
 
-            return client.send(request, HttpResponse.BodyHandlers.ofString());
-        }
+        return httpClient.send(request, HttpResponse.BodyHandlers.ofString());
     }
 
     public MercadoPagoQrCodeDto generateQrCode(OrderDto order) throws Exception {
