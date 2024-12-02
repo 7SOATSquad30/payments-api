@@ -1,7 +1,8 @@
 package br.com.fiap.grupo30.fastfood.payments_api.presentation.dtos.mercadopago;
 
 public enum MercadoPagoPaymentStatus {
-    APPROVED("approved");
+    APPROVED("approved"),
+    REJECTED("rejected");
 
     private String value;
 

@@ -3,7 +3,6 @@ package br.com.fiap.grupo30.fastfood.payments_api.presentation.controllers;
 import br.com.fiap.grupo30.fastfood.payments_api.domain.repositories.PaymentRepository;
 import br.com.fiap.grupo30.fastfood.payments_api.domain.usecases.CollectPaymentViaCashUseCase;
 import br.com.fiap.grupo30.fastfood.payments_api.domain.usecases.GetPaymentStatusUseCase;
-import br.com.fiap.grupo30.fastfood.payments_api.infrastructure.auth.RequireAdminUserRole;
 import br.com.fiap.grupo30.fastfood.payments_api.presentation.dtos.CollectPaymentViaCashRequestDto;
 import br.com.fiap.grupo30.fastfood.payments_api.presentation.dtos.PaymentDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,7 +26,6 @@ public class PaymentCollectionController {
     @Autowired private GetPaymentStatusUseCase getPaymentStatusUseCase;
     @Autowired private PaymentRepository paymentRepository;
 
-    @RequireAdminUserRole()
     @PostMapping(value = "/{orderId}/collect/cash")
     @Operation(summary = "Collect payment by cash")
     public ResponseEntity<PaymentDto> collectPaymentByCash(

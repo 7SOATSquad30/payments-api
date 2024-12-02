@@ -1,5 +1,6 @@
 package br.com.fiap.grupo30.fastfood.payments_api.infrastructure.config;
 
+import java.net.URI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +15,9 @@ import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 
 @Configuration
 public class DynamoDbConfig {
+
+    @Value("${spring.cloud.aws.endpoint.override:#{null}}")
+    private String overrideAwsEndpoint;
 
     @Value("${spring.cloud.aws.credentials.access-key}")
     private String accessKeyId;
@@ -37,10 +41,16 @@ public class DynamoDbConfig {
                         : StaticCredentialsProvider.create(
                                 AwsBasicCredentials.create(accessKeyId, secretAccessKey));
 
-        return DynamoDbClient.builder()
-                .credentialsProvider(credentialsProvider)
-                .region(Region.of(region))
-                .build();
+        var builder =
+                DynamoDbClient.builder()
+                        .credentialsProvider(credentialsProvider)
+                        .region(Region.of(region));
+
+        if (overrideAwsEndpoint != null) {
+            builder.endpointOverride(URI.create(overrideAwsEndpoint));
+        }
+
+        return builder.build();
     }
 
     @Bean
