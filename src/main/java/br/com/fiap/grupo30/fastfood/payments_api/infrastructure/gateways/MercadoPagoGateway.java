@@ -76,7 +76,7 @@ public class MercadoPagoGateway {
     public MercadoPagoQrCodeDto generateQrCode(OrderDto order) throws Exception {
         String resourceUriTemplate = "%s/instore/orders/qr/seller/collectors/%s/pos/%s/qrs";
         URI resourceUri =
-                URI.create(String.format(baseUrl, resourceUriTemplate, appUserId, pointOfSaleId));
+                URI.create(String.format(resourceUriTemplate, baseUrl, appUserId, pointOfSaleId));
 
         MercadoPagoOrderDto mercadoPagoOrder = orderMapper.map(order, notificationsUrl);
         BodyPublisher requestBody =
@@ -94,7 +94,7 @@ public class MercadoPagoGateway {
 
     public MercadoPagoPaymentDto getPaymentState(String paymentId) throws Exception {
         String resourceUriTemplate = "%s/v1/payments/%s";
-        URI resourceUri = URI.create(String.format(baseUrl, resourceUriTemplate, paymentId));
+        URI resourceUri = URI.create(String.format(resourceUriTemplate, baseUrl, paymentId));
 
         var response = makeRequest("GET", resourceUri);
         return jsonMapper.readValue(response.body(), MercadoPagoPaymentDto.class);

@@ -7,19 +7,19 @@ import java.time.Instant;
 import java.util.Date;
 
 public class MercadoPagoEventFixtures {
-    public static MercadoPagoActionEventDto paymentEvent() {
+    public static MercadoPagoActionEventDto paymentEvent(Long paymentId) {
         return new MercadoPagoActionEventDto(
                 "fakeEventId",
                 MercadoPagoAction.PAYMENT_CREATED.getValue(),
                 "payment",
-                MercadoPagoEventFixtures.paymentData(),
+                MercadoPagoEventFixtures.paymentData(paymentId),
                 "fakeUserId",
                 "1.0",
                 Date.from(Instant.now()),
                 true);
     }
 
-    private static MercadoPagoActionEventDataDto paymentData() {
-        return new MercadoPagoActionEventDataDto("fakeDataId");
+    private static MercadoPagoActionEventDataDto paymentData(Long paymentId) {
+        return new MercadoPagoActionEventDataDto(paymentId.toString());
     }
 }

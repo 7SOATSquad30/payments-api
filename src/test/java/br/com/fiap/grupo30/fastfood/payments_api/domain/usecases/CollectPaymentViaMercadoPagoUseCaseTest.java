@@ -33,7 +33,10 @@ class CollectPaymentViaMercadoPagoUseCaseTest {
     @Test
     void test_ShouldUpdatePaymentStatusToCollected_WhenPaymentCollectedViaMercadoPago()
             throws Exception {
-        MercadoPagoActionEventDto mockPaymentEvent = MercadoPagoEventFixtures.paymentEvent();
+
+        Long paymentId = (long) (Math.random() * 1000000000);
+        MercadoPagoActionEventDto mockPaymentEvent =
+                MercadoPagoEventFixtures.paymentEvent(paymentId);
         MercadoPagoPaymentDto mockMercadoPagoPayment = MercadoPagoPaymentFixtures.approved();
         Payment mockPayment = PaymentFixtures.pending();
 
@@ -57,7 +60,10 @@ class CollectPaymentViaMercadoPagoUseCaseTest {
     @Test
     void test_ShouldUpdatePaymentStatusToRejected_WhenPaymentViaMercadoPagoFailed()
             throws Exception {
-        MercadoPagoActionEventDto mockPaymentEvent = MercadoPagoEventFixtures.paymentEvent();
+
+        Long paymentId = (long) (Math.random() * 1000000000);
+        MercadoPagoActionEventDto mockPaymentEvent =
+                MercadoPagoEventFixtures.paymentEvent(paymentId);
         MercadoPagoPaymentDto mockMercadoPagoPayment = MercadoPagoPaymentFixtures.rejected();
         Payment mockPayment = PaymentFixtures.pending();
 
@@ -80,7 +86,9 @@ class CollectPaymentViaMercadoPagoUseCaseTest {
 
     @Test
     void test_ShouldUpdatePaymentAmount_WhenPaymentCollectedViaMercadoPago() throws Exception {
-        MercadoPagoActionEventDto mockPaymentEvent = MercadoPagoEventFixtures.paymentEvent();
+        Long paymentId = (long) (Math.random() * 1000000000);
+        MercadoPagoActionEventDto mockPaymentEvent =
+                MercadoPagoEventFixtures.paymentEvent(paymentId);
         MercadoPagoPaymentDto mockMercadoPagoPayment = MercadoPagoPaymentFixtures.approved();
         Payment mockPayment = PaymentFixtures.pending();
 
