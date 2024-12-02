@@ -116,4 +116,4 @@ jobs:
           echo "Coverage validation passed with $PERCENTAGE%."
 
       - name: Build
-          run: ./gradlew clean assemble
+        run: ./gradlew clean assemble
