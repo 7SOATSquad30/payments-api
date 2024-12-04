@@ -5,7 +5,7 @@ Microservices that provides all necessary endpoints.
 
 ## Test evidence
 
-<img src="/tests.png">
+<img src="/tests.jpg">
 
 
 ## Como rodar
